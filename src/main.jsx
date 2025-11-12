@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil'; // 👈 import 확인
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RecoilRoot> // 👈 App 컴포넌트 감싸기 확인
+    <RecoilRoot> 
       <App />
     </RecoilRoot>
   </React.StrictMode>,
