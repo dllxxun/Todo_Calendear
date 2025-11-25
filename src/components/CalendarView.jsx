@@ -34,7 +34,7 @@ function CalendarView({ selectedDate, setSelectedDate }) {
     if (view === 'month' && datesWithTodos.has(date.toDateString())) {
       // 현재 타일의 날짜가 To-do가 있는 날짜 목록에 포함되는지 확인
       return 'highlight-todo'; // 사용자 정의 CSS 클래스 반환
-    }
+    } 
   };
 
   return (
@@ -46,7 +46,7 @@ function CalendarView({ selectedDate, setSelectedDate }) {
         tileClassName={tileClassName} // 날짜 셀에 클래스 적용
       />
       <p style={{ marginTop: '10px' }}>
-        선택된 날짜: **{value.toLocaleDateString()}**
+        오늘의 날짜: **{value.toLocaleDateString()}**
       </p>
     </div>
   );
