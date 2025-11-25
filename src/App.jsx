@@ -1,9 +1,12 @@
 // src/App.jsx
 import './App.css'; 
+import React, { useState } from 'react';
 import TodoList from './components/Todolist'; 
 import CalendarView from './components/CalendarView';
 
 function App() {
+  // 선택 날짜 상태를 여기서 선언 (기본값은 오늘)
+  const [selectedDate, setSelectedDate] = useState(new Date());
   return (
     <div className="App">
       <header>
@@ -18,12 +21,15 @@ function App() {
       }}>
         {/* 달력 컴포넌트를 왼쪽에 배치 (선택 사항) */}
         <div style={{ flex: 1 }}>
-          <CalendarView />
+          <CalendarView
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
         </div>
 
         {/* To-do 리스트 컴포넌트를 오른쪽에 배치 */}
         <div style={{ flex: 1 }}>
-          <TodoList />
+          <TodoList selectedDate={selectedDate} />
         </div>
       </main>
     </div>

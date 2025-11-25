@@ -8,7 +8,7 @@ import { todoListState } from '../store/todoStore'; // To-do 상태 import
 
 
 // Calendar 컴포넌트
-function CalendarView() {
+function CalendarView({ selectedDate, setSelectedDate }) {
   // 캘린더에서 선택된 날짜 상태 (기본값은 오늘)
   const [value, onChange] = useState(new Date()); 
   
@@ -31,11 +31,9 @@ function CalendarView() {
   // 캘린더 타일(날짜 셀)을 꾸며주는 함수
   const tileClassName = ({ date, view }) => {
     // 'month' 뷰에서만 작동
-    if (view === 'month') {
+    if (view === 'month' && datesWithTodos.has(date.toDateString())) {
       // 현재 타일의 날짜가 To-do가 있는 날짜 목록에 포함되는지 확인
-      if (datesWithTodos.has(date.toDateString())) {
-        return 'highlight-todo'; // 사용자 정의 CSS 클래스 반환
-      }
+      return 'highlight-todo'; // 사용자 정의 CSS 클래스 반환
     }
   };
 
@@ -43,8 +41,8 @@ function CalendarView() {
     <div className="calendar-container" style={{ padding: '20px' }}>
       <h2>🗓️ 마감일 달력</h2>
       <Calendar
-        onChange={onChange} // 날짜 변경 핸들러
-        value={value} // 현재 선택된 날짜
+        onChange={setSelectedDate} // 날짜 변경 핸들러
+        value={selectedDate} // 현재 선택된 날짜
         tileClassName={tileClassName} // 날짜 셀에 클래스 적용
       />
       <p style={{ marginTop: '10px' }}>
