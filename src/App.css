@@ -56,3 +56,27 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 
+.App {
+  background: #f9f9f9;
+  color: #222;
+  min-height: 100vh;
+  transition: background 0.4s, color 0.4s;
+}
+
+.App.dark {
+  background: #181a20;
+  color: #eee;
+}
+
+.App.dark input,
+.App.dark textarea {
+  background: #23272f;
+  color: #eee;
+  border: 1px solid #333;
+}
+
+.App.dark button {
+  background: #23272f;
+  color: #eee;
+  border: 1px solid #444;
+}

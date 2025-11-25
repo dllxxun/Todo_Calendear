@@ -7,8 +7,19 @@ import CalendarView from './components/CalendarView';
 function App() {
   // 선택 날짜 상태를 여기서 선언 (기본값은 오늘)
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isDark, setIsDark] = useState(false);
   return (
-    <div className="App">
+    <div className={`App${isDark ? ' dark' : ''}`}>
+      <button
+        onClick={() => setIsDark(prev => !prev)}
+        style={{
+          position: "absolute", right: "40px", top: "40px", // 원하는 위치 조정
+          background: "none", border: "none", cursor: "pointer", fontSize: "1.7rem"
+        }}
+        aria-label="모드 전환"
+      >
+        {isDark ? "☀️" : "🌙"}
+      </button>
       <header>
         <h1>🗓️ Todo & Calendar Project</h1>
       </header>
