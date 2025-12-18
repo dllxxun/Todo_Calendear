@@ -29,19 +29,38 @@
   font-size: 0.95rem;
 }
 
-.login-button {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: none;
-  background: #4285f4;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.15s ease;
+.login-logo {
+  font-size: 3rem;
+  margin-bottom: 8px;
 }
 
-.login-button:hover {
-  background: #3367d6;
+.login-main-button,
+.login-sub-button {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
 }
+
+.login-main-button {
+  background: #000;
+  color: #fff;
+}
+
+.login-main-button:hover {
+  background: #111827;
+}
+
+.login-sub-button {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.login-sub-button:hover {
+  background: #e5e7eb;
+}
+
