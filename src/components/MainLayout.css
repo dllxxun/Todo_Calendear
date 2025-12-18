@@ -1,0 +1,66 @@
+/* src/components/MainLayout.css */
+.layout-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+.layout-header {
+  padding: 12px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.layout-header-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.layout-username {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.logout-button {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  border: 1px solid #d0d0d0;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #f3f3f3;
+}
+
+.layout-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 16px 20px;
+}
+
+.layout-panel {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.panel-title {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+}
