@@ -3,31 +3,48 @@ import "./App.css";
 import React, { useState } from "react";
 import TodoList from "./components/Todolist";
 import CalendarView from "./components/CalendarView";
-
-// 새로 만든 컴포넌트 import
 import LoginScreen from "./components/LoginScreen";
-import MainLayout from "./components/MainLayout";
 
 function App() {
-  // 선택 날짜 상태 (기본값: 오늘)
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isDark, setIsDark] = useState(false);
 
-  // 로그인 상태 (임시 유저)
+  // 로그인된 사용자 (Firebase User)
   const [user, setUser] = useState(null);
 
-  // 로그인 후에 보여줄 “기존 레이아웃”을 MainLayout 안에서 재사용
+  // 햄버거 메뉴 열림 여부
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // 로그인 안 했을 때는 로그인 화면만 보여주기
   if (!user) {
     return (
       <div className={`App${isDark ? " dark" : ""}`}>
-        <LoginScreen onLogin={(fakeUser) => setUser(fakeUser)} />
+        {/* 다크모드 버튼은 로그인 화면에서도 보이게 */}
+        <button
+          onClick={() => setIsDark((prev) => !prev)}
+          style={{
+            position: "absolute",
+            right: "40px",
+            top: "40px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1.7rem",
+          }}
+          aria-label="모드 전환"
+        >
+          {isDark ? "☀️" : "🌙"}
+        </button>
+
+        <LoginScreen onLogin={(firebaseUser) => setUser(firebaseUser)} />
       </div>
     );
   }
 
+  // 로그인 후 메인 화면
   return (
     <div className={`App${isDark ? " dark" : ""}`}>
-      {/* 다크모드 버튼 그대로 유지 */}
+      {/* 다크모드 버튼 */}
       <button
         onClick={() => setIsDark((prev) => !prev)}
         style={{
@@ -44,24 +61,129 @@ function App() {
         {isDark ? "☀️" : "🌙"}
       </button>
 
-      {/* 여기부터가 “로그인 후 메인 화면” */}
-      <header>
-        <h1>🗓️ Todo & Calendar Project</h1>
+      {/* 헤더 + 햄버거 메뉴 + 로그아웃 */}
+      <header
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          padding: "12px 20px",
+          borderBottom: "1px solid #e5e7eb",
+          background: "#fff",
+        }}
+      >
         <button
-          onClick={() => setUser(null)}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
           style={{
-            marginLeft: "auto",
-            marginRight: "20px",
-            padding: "6px 12px",
-            borderRadius: "4px",
-            border: "1px solid #ccc",
+            fontSize: "1.4rem",
+            background: "none",
+            border: "none",
             cursor: "pointer",
           }}
+          aria-label="메뉴 열기"
         >
-          로그아웃
+          ☰
         </button>
+        <h1 style={{ margin: 0, fontSize: "1.2rem" }}>
+          🗓️ Todo &amp; Calendar Project
+        </h1>
+        <div style={{ marginLeft: "auto", display: "flex", gap: "8px", alignItems: "center" }}>
+          <span style={{ fontSize: "0.9rem" }}>
+            {user.displayName || "사용자"}
+          </span>
+          <button
+            onClick={() => {
+              setUser(null);
+              setIsMenuOpen(false);
+            }}
+            style={{
+              padding: "6px 12px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              background: "#fff",
+              cursor: "pointer",
+              fontSize: "0.85rem",
+            }}
+          >
+            로그아웃
+          </button>
+        </div>
       </header>
 
+      {/* 왼쪽에서 나오는 사이드 메뉴 */}
+      {isMenuOpen && (
+        <nav
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "220px",
+            height: "100vh",
+            padding: "80px 16px 16px",
+            background: "#111827",
+            color: "#f9fafb",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            zIndex: 100,
+          }}
+        >
+          <button
+            style={{
+              textAlign: "left",
+              border: "none",
+              background: "transparent",
+              color: "#e5e7eb",
+              fontSize: "0.95rem",
+              padding: "8px 4px",
+              cursor: "pointer",
+            }}
+          >
+            캘린더
+          </button>
+          <button
+            style={{
+              textAlign: "left",
+              border: "none",
+              background: "transparent",
+              color: "#e5e7eb",
+              fontSize: "0.95rem",
+              padding: "8px 4px",
+              cursor: "pointer",
+            }}
+          >
+            피드
+          </button>
+          <button
+            style={{
+              textAlign: "left",
+              border: "none",
+              background: "transparent",
+              color: "#e5e7eb",
+              fontSize: "0.95rem",
+              padding: "8px 4px",
+              cursor: "pointer",
+            }}
+          >
+            알림
+          </button>
+          <button
+            style={{
+              textAlign: "left",
+              border: "none",
+              background: "transparent",
+              color: "#e5e7eb",
+              fontSize: "0.95rem",
+              padding: "8px 4px",
+              cursor: "pointer",
+            }}
+          >
+            My
+          </button>
+        </nav>
+      )}
+
+      {/* 메인 영역 (기존 레이아웃) */}
       <main
         style={{
           padding: "20px",
