@@ -15,6 +15,8 @@ function App() {
   // 햄버거 메뉴 열림 여부
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  
+
   // 로그인 안 했을 때는 로그인 화면만 보여주기
   if (!user) {
     return (
@@ -128,6 +130,29 @@ function App() {
             zIndex: 100,
           }}
         >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "32px",
+            }}
+          >
+            <span style={{ fontWeight: 600 }}>Todo &amp; Calendar</span>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#9ca3af",
+                fontSize: "1.2rem",
+                cursor: "pointer",
+              }}
+              aria-label="사이드바 닫기"
+            >
+              ✕
+            </button>
+          </div>
           <button
             style={{
               textAlign: "left",
