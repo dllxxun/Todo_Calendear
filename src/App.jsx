@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import TodoList from "./components/Todolist";
 import CalendarView from "./components/CalendarView";
 import LoginScreen from "./components/LoginScreen";
+import MyPage from "./components/MyPage";
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -15,7 +16,8 @@ function App() {
   // 햄버거 메뉴 열림 여부
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  
+  //my페이지
+  const [currentPage, setCurrentPage] = useState("home");
 
   // 로그인 안 했을 때는 로그인 화면만 보여주기
   if (!user) {
@@ -202,6 +204,10 @@ function App() {
               padding: "8px 4px",
               cursor: "pointer",
             }}
+            onClick={() => {
+              setCurrentPage("my");
+              setIsMenuOpen(false); // 누르면 사이드바 닫힘
+            }}
           >
             My
           </button>
@@ -212,23 +218,36 @@ function App() {
       <main
         style={{
           padding: "20px",
-          display: "flex",
-          gap: "40px",
           maxWidth: "1000px",
           width: "100%",
         }}
       >
-        <div style={{ flex: 1 }}>
-          <CalendarView
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-        </div>
+        {currentPage === "home" && (
+          <div style={{ display: "flex", gap: "40px" }}>
+            <div style={{ flex: 1 }}>
+              <CalendarView
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <TodoList selectedDate={selectedDate} />
+            </div>
+          </div>
+        )}
 
-        <div style={{ flex: 1 }}>
-          <TodoList selectedDate={selectedDate} />
-        </div>
+        {currentPage === "my" && (
+          <MyPage
+            isDark={isDark}
+            setIsDark={setIsDark}
+            onLogout={() => {
+              setUser(null);
+              setCurrentPage("home");
+            }}
+          />
+        )}
       </main>
+
     </div>
   );
 }
