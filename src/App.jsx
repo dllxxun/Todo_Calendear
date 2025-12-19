@@ -5,6 +5,7 @@ import TodoList from "./components/Todolist";
 import CalendarView from "./components/CalendarView";
 import LoginScreen from "./components/LoginScreen";
 import MyPage from "./components/MyPage";
+import CalendarPage from "./components/CalendarPage";
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -17,7 +18,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   //my페이지
-  const [currentPage, setCurrentPage] = useState("home");
+  const [currentPage, setCurrentPage] = useState("home"); //"home"|"calendar"|"my"
 
   // 로그인 안 했을 때는 로그인 화면만 보여주기
   if (!user) {
@@ -48,7 +49,9 @@ function App() {
         }}
       >
         <button
-          onClick={() => setIsMenuOpen((prev) => !prev)}
+          onClick={() => {setCurrentPage("home"); 
+            
+          }}
           style={{
             fontSize: "1.4rem",
             background: "none",
@@ -120,6 +123,10 @@ function App() {
               padding: "8px 4px",
               cursor: "pointer",
             }}
+            onClick={() => {
+              setCurrentPage("calendar");   // ✅ 홈(캘린더+Todo) 페이지로
+              setIsMenuOpen(false);     // 사이드바 닫기
+            }}
           >
             캘린더
           </button>
@@ -190,7 +197,12 @@ function App() {
             </div>
           </div>
         )}
-
+        {currentPage === "calendar" && (
+          <CalendarPage
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        )}
         {currentPage === "my" && (
           <MyPage
             isDark={isDark}
