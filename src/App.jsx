@@ -17,15 +17,13 @@ function App() {
   // 햄버거 메뉴 열림 여부
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  //my페이지
-  const [currentPage, setCurrentPage] = useState("home"); //"home"|"calendar"|"my"
+  // 현재 페이지: home | calendar | my
+  const [currentPage, setCurrentPage] = useState("home");
 
   // 로그인 안 했을 때는 로그인 화면만 보여주기
   if (!user) {
     return (
       <div className={`App${isDark ? " dark" : ""}`}>
-        {/* 다크모드 버튼은 로그인 화면에서도 보이게 */}
-
         <LoginScreen onLogin={(firebaseUser) => setUser(firebaseUser)} />
       </div>
     );
@@ -34,9 +32,6 @@ function App() {
   // 로그인 후 메인 화면
   return (
     <div className={`App${isDark ? " dark" : ""}`}>
-      {/* 다크모드 버튼 */}
-      
-
       {/* 헤더 + 햄버거 메뉴 + 로그아웃 */}
       <header
         style={{
@@ -48,10 +43,9 @@ function App() {
           background: "#fff",
         }}
       >
+        {/* 햄버거 버튼: 사이드바 열기 */}
         <button
-          onClick={() => {setCurrentPage("home"); 
-            
-          }}
+          onClick={() => setIsMenuOpen(true)}
           style={{
             fontSize: "1.4rem",
             background: "none",
@@ -62,10 +56,33 @@ function App() {
         >
           ☰
         </button>
-        <h1 style={{ margin: 0, fontSize: "1.2rem" }}>
-          🗓️ Todo &amp; Calendar Project
-        </h1>
-        <div style={{ marginLeft: "auto", display: "flex", gap: "8px", alignItems: "center" }}>
+
+        {/* 로고/타이틀: 클릭 시 home으로 이동 */}
+        <button
+          onClick={() => setCurrentPage("home")}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            border: "none",
+            background: "none",
+            cursor: "pointer",
+            fontSize: "1.1rem",
+            fontWeight: 600,
+          }}
+        >
+          <span>🗓️</span>
+          <span>Todo &amp; Calendar Project</span>
+        </button>
+
+        <div
+          style={{
+            marginLeft: "auto",
+            display: "flex",
+            gap: "8px",
+            alignItems: "center",
+          }}
+        >
           <span style={{ fontSize: "0.9rem" }}>
             {user.displayName || "사용자"}
           </span>
@@ -113,6 +130,8 @@ function App() {
               ✕
             </button>
           </div>
+
+          {/* 캘린더 전용 페이지 */}
           <button
             style={{
               textAlign: "left",
@@ -124,12 +143,14 @@ function App() {
               cursor: "pointer",
             }}
             onClick={() => {
-              setCurrentPage("calendar");   // ✅ 홈(캘린더+Todo) 페이지로
-              setIsMenuOpen(false);     // 사이드바 닫기
+              setCurrentPage("calendar");
+              setIsMenuOpen(false);
             }}
           >
             캘린더
           </button>
+
+          {/* 피드 / 알림은 일단 동작 없음 */}
           <button
             style={{
               textAlign: "left",
@@ -143,6 +164,7 @@ function App() {
           >
             피드
           </button>
+
           <button
             style={{
               textAlign: "left",
@@ -156,6 +178,8 @@ function App() {
           >
             알림
           </button>
+
+          {/* My 페이지 */}
           <button
             style={{
               textAlign: "left",
@@ -168,7 +192,7 @@ function App() {
             }}
             onClick={() => {
               setCurrentPage("my");
-              setIsMenuOpen(false); // 누르면 사이드바 닫힘
+              setIsMenuOpen(false);
             }}
           >
             My
@@ -176,7 +200,7 @@ function App() {
         </nav>
       )}
 
-      {/* 메인 영역 (기존 레이아웃) */}
+      {/* 메인 영역 */}
       <main
         style={{
           padding: "20px",
@@ -197,12 +221,14 @@ function App() {
             </div>
           </div>
         )}
+
         {currentPage === "calendar" && (
           <CalendarPage
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
           />
         )}
+
         {currentPage === "my" && (
           <MyPage
             isDark={isDark}
@@ -214,7 +240,6 @@ function App() {
           />
         )}
       </main>
-
     </div>
   );
 }
