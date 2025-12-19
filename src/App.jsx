@@ -24,21 +24,6 @@ function App() {
     return (
       <div className={`App${isDark ? " dark" : ""}`}>
         {/* 다크모드 버튼은 로그인 화면에서도 보이게 */}
-        <button
-          onClick={() => setIsDark((prev) => !prev)}
-          style={{
-            position: "absolute",
-            right: "40px",
-            top: "40px",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "1.7rem",
-          }}
-          aria-label="모드 전환"
-        >
-          {isDark ? "☀️" : "🌙"}
-        </button>
 
         <LoginScreen onLogin={(firebaseUser) => setUser(firebaseUser)} />
       </div>
@@ -49,21 +34,7 @@ function App() {
   return (
     <div className={`App${isDark ? " dark" : ""}`}>
       {/* 다크모드 버튼 */}
-      <button
-        onClick={() => setIsDark((prev) => !prev)}
-        style={{
-          position: "absolute",
-          right: "40px",
-          top: "40px",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          fontSize: "1.7rem",
-        }}
-        aria-label="모드 전환"
-      >
-        {isDark ? "☀️" : "🌙"}
-      </button>
+      
 
       {/* 헤더 + 햄버거 메뉴 + 로그아웃 */}
       <header
@@ -95,22 +66,6 @@ function App() {
           <span style={{ fontSize: "0.9rem" }}>
             {user.displayName || "사용자"}
           </span>
-          <button
-            onClick={() => {
-              setUser(null);
-              setIsMenuOpen(false);
-            }}
-            style={{
-              padding: "6px 12px",
-              borderRadius: "4px",
-              border: "1px solid #ccc",
-              background: "#fff",
-              cursor: "pointer",
-              fontSize: "0.85rem",
-            }}
-          >
-            로그아웃
-          </button>
         </div>
       </header>
 
