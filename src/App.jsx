@@ -6,6 +6,8 @@ import CalendarView from "./components/CalendarView";
 import LoginScreen from "./components/LoginScreen";
 import MyPage from "./components/MyPage";
 import CalendarPage from "./components/CalendarPage";
+import FocusTimerPage from "./components/FocusTimerPage";
+
 
 function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -175,6 +177,10 @@ function App() {
               padding: "8px 4px",
               cursor: "pointer",
             }}
+            onClick={() => {
+              setCurrentPage("timer");
+              setIsMenuOpen(false);
+            }}
           >
             타이머
           </button>
@@ -191,7 +197,7 @@ function App() {
               cursor: "pointer",
             }}
             onClick={() => {
-              setCurrentPage("my");
+              setCurrentPage("timer");
               setIsMenuOpen(false);
             }}
           >
@@ -239,6 +245,9 @@ function App() {
             }}
           />
         )}
+
+        {currentPage === "timer" && <FocusTimerPage />}
+
       </main>
     </div>
   );
