@@ -176,7 +176,7 @@ function App() {
               cursor: "pointer",
             }}
           >
-            알림
+            타이머
           </button>
 
           {/* My 페이지 */}
