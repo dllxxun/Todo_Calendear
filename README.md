@@ -4,7 +4,7 @@ React 기반의 **Todo + Calendar 통합 웹 애플리케이션**입니다.
 날짜별 할 일 관리, 월간 일정 확인, 공부 타이머 기능을 한 화면에서 사용할 수 있으며  
 Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구현했습니다.
 
----
+
 
 ## ✨ 기능
 
@@ -21,7 +21,7 @@ Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구
   - Firebase Authentication 기반 로그인 / 로그아웃
   - 로그인 후 메인 기능 접근 가능
 
----
+
 
 ## 🛠 기술 스택
 
@@ -29,7 +29,7 @@ Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구
 - **Backend Service**: Firebase Authentication, Cloud Firestore
 - **Styling**: CSS
 
----
+
 
 ## 🚀 Getting Started
 
