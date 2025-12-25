@@ -6,7 +6,7 @@ Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구
 
 
 
-## ✨ 기능
+## ✨ Feature
 
 - 📅 **Calendar & Todo**
   - 날짜별 Todo 추가 / 수정 / 삭제 / 완료 처리
@@ -23,7 +23,7 @@ Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구
 
 
 
-## 🛠 기술 스택
+## 🛠 Tech Stack
 
 - **Frontend**: React, Vite, Recoil
 - **Backend Service**: Firebase Authentication, Cloud Firestore
