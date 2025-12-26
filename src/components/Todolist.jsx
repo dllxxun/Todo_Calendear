@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../store/todoStore";
 
-
+import { doc, deleteDoc, updateDoc  } from 'firebase/firestore';
 import { db } from "../utils/firebase";
 import {
   collection,
@@ -32,7 +32,7 @@ function TodoList({ selectedDate }) {
 
   const selectedDateStr = formatDateToString(selectedDate);
 
-  // ✅ 1. Firestore에서 현재 날짜의 todo 불러오기
+  // 1. Firestore에서 현재 날짜의 todo 불러오기
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -56,7 +56,7 @@ function TodoList({ selectedDate }) {
     fetchTodos();
   }, [selectedDateStr, setTodoList]);
 
-  // ✅ 2. Firestore에 새 todo 추가
+  //  2. Firestore에 새 todo 추가
   const handleAddTodo = async () => {
     if (input.trim() === "") return;
 
@@ -90,18 +90,38 @@ function TodoList({ selectedDate }) {
     ? todoList.filter((todo) => todo.isCompleted)
     : todoList.filter((todo) => todo.dueDate === selectedDateStr);
 
-  // 나머지(삭제, 토글, 메모)는 일단 로컬 상태 그대로 유지
-  const handleDeleteTodo = (id) => {
-    setTodoList((list) => list.filter((todo) => todo.id !== id));
+  // Firestore + 로컬 동시 삭제
+  const handleDeleteTodo = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'todos', id));  
+      setTodoList((list) => list.filter((todo) => todo.id !== id));
+      console.log('Todo 삭제 완료:', id);
+    } catch (error) {
+      console.error('삭제 실패:', error);
+      alert('할 일 삭제에 실패했습니다');
+    }
   };
 
-  const toggleComplete = (id) => {
-    setTodoList((oldTodoList) =>
-      oldTodoList.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-      )
-    );
+
+  const toggleComplete = async (id, current) => {
+    try {
+      // 1) Firestore에서 isCompleted 토글
+      await updateDoc(doc(db, "todos", id), {
+        isCompleted: !current,
+      });
+
+      // 2) 로컬 상태도 같이 토글
+      setTodoList((oldTodoList) =>
+        oldTodoList.map((todo) =>
+          todo.id === id ? { ...todo, isCompleted: !current } : todo
+        )
+      );
+    } catch (e) {
+      console.error("완료 상태 변경 실패:", e);
+      alert("완료 상태 변경에 실패했습니다.");
+    }
   };
+
 
   const handleAddMemo = () => {
     if (!selectedTodo || newMemo.trim() === "") return;
@@ -167,7 +187,7 @@ function TodoList({ selectedDate }) {
           <input
             type="checkbox"
             checked={todo.isCompleted}
-            onChange={() => toggleComplete(todo.id)}
+            onChange={() => toggleComplete(todo.id, todo.isCompleted)}
             style={{ marginRight: "10px" }}
           />
           <span

@@ -25,7 +25,7 @@ function FocusTimerPage() {
   const [isRunning, setIsRunning] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(1500); // 25분
   const [viewMode, setViewMode] = useState("timer"); // "timer" | "calendar"
-
+  const [sessionMinutes, setSessionMinutes] = useState(0); 
   const [monthlyData, setMonthlyData] = useState({}); // studyTime 전체
   const [todayStudyMinutes, setTodayStudyMinutes] = useState(0); // 오늘 공부 시간(분)
 
@@ -94,7 +94,7 @@ function FocusTimerPage() {
 
   // Firestore에 "오늘 공부 시간"으로 sessionMinutes를 더하는 함수
   const saveSessionToFirestore = async () => {
-    if (sessionMinutes <= 0) {
+    if ((sessionMinutes ||0) <= 0) {
       alert("저장할 공부 시간이 없어요!");
       return;
     }

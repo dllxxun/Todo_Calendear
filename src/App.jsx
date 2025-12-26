@@ -163,20 +163,6 @@ function App() {
               padding: "8px 4px",
               cursor: "pointer",
             }}
-          >
-            피드
-          </button>
-
-          <button
-            style={{
-              textAlign: "left",
-              border: "none",
-              background: "transparent",
-              color: "#e5e7eb",
-              fontSize: "0.95rem",
-              padding: "8px 4px",
-              cursor: "pointer",
-            }}
             onClick={() => {
               setCurrentPage("timer");
               setIsMenuOpen(false);
@@ -197,7 +183,7 @@ function App() {
               cursor: "pointer",
             }}
             onClick={() => {
-              setCurrentPage("timer");
+              setCurrentPage("my");
               setIsMenuOpen(false);
             }}
           >

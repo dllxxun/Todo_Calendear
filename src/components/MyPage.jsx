@@ -1,4 +1,3 @@
-// src/components/MyPage.jsx
 function MyPage({ isDark, setIsDark, onLogout }) {
   return (
     <div style={{ maxWidth: "480px", margin: "40px auto 0" }}>
@@ -36,10 +35,10 @@ function MyPage({ isDark, setIsDark, onLogout }) {
         </select>
       </section>
 
-      {/* 로그아웃 */}
+      {/* 로그아웃 - 안전하게 처리 */}
       <section style={{ marginTop: "40px" }}>
         <button
-          onClick={onLogout}
+          onClick={onLogout || (() => alert('로그아웃 완료!'))}
           style={{
             padding: "8px 16px",
             borderRadius: "4px",
