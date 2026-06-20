@@ -1,5 +1,6 @@
 # 📝 Todo & Calendar Web App
 
+<img width="1232" height="848" alt="image" src="https://github.com/user-attachments/assets/910d6a02-a790-4d63-8016-18ed695b6bd7" />
 React 기반의 **Todo + Calendar 통합 웹 애플리케이션**입니다.  
 날짜별 할 일 관리, 월간 일정 확인, 공부 타이머 기능을 한 화면에서 사용할 수 있으며  
 Firebase Authentication과 Firestore를 활용해 실제 서비스 구조로 구현했습니다.
